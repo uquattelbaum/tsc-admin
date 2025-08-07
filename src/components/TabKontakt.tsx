@@ -8,12 +8,12 @@ interface Props {
 export default function TabKontakt({ mitglied, onChange }: Props) {
   return (
     <div className="space-y-4">
-      <Input label="Straße" value={mitglied.strasse} onChange={(v) => onChange("strasse", v)} />
-      <Input label="PLZ" value={mitglied.plz} onChange={(v) => onChange("plz", v)} />
-      <Input label="Ort" value={mitglied.ort} onChange={(v) => onChange("ort", v)} />
-      <Input label="Telefon (Festnetz)" value={mitglied.telefon} onChange={(v) => onChange("telefon", v)} />
-      <Input label="Mobil (Handy)" value={mitglied.mobil} onChange={(v) => onChange("mobil", v)} />
-      <Input label="E-Mail" value={mitglied.email} onChange={(v) => onChange("email", v)} />
+      <Input label="Straße" value={mitglied.strasse ?? ""} onChange={(v) => onChange("strasse", v)} />
+      <Input label="PLZ" value={mitglied.plz ?? ""} onChange={(v) => onChange("plz", v)} />
+      <Input label="Ort" value={mitglied.ort ?? ""} onChange={(v) => onChange("ort", v)} />
+      <Input label="Telefon (Festnetz)" value={mitglied.telefon ?? ""} onChange={(v) => onChange("telefon", v)} />
+      <Input label="Mobil (Handy)" value={mitglied.mobil ?? ""} onChange={(v) => onChange("mobil", v)} />
+      <Input label="E-Mail" value={mitglied.email ?? ""} onChange={(v) => onChange("email", v)} />
     </div>
   );
 }

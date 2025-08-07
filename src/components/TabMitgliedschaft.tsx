@@ -1,8 +1,8 @@
-import type { Mitgliedschaft } from "../types";
+import type { Mitglied } from "../types";
 
 interface Props {
-  mitgliedschaft: Mitgliedschaft;
-  onChange: (field: keyof Mitgliedschaft, value: string) => void;
+  mitgliedschaft: Partial<Mitglied>;
+  onChange: (field: keyof Mitglied, value: string) => void;
 }
 
 export default function TabMitgliedschaft({ mitgliedschaft, onChange }: Props) {

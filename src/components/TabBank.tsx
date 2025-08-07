@@ -10,12 +10,12 @@ export default function TabBank({ mitglied, onChange }: Props) {
     <div className="space-y-4">
       <Input
         label="Kontoinhaber"
-        value={mitglied.kontoinhaber}
+        value={mitglied.kontoinhaber ?? ""}
         onChange={(v) => onChange("kontoinhaber", v)}
       />
       <Input
         label="IBAN"
-        value={mitglied.iban}
+        value={mitglied.iban ?? ""}
         onChange={(v) => onChange("iban", v)}
       />
     </div>
