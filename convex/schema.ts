@@ -14,13 +14,13 @@ export default defineSchema({
     uhrzeit: v.optional(v.string()),
     trainer: v.optional(v.string()),
     raum: v.optional(v.string()),
-  }),
+  }).index("by_abteilung", ["abteilungId"]),
 
   mitglieder: defineTable({
     adressnummer: v.optional(v.string()),
     nachname: v.string(),
     vorname: v.string(),
-    geburtstag: v.optional(v.string()),
+    geburtsdatum: v.optional(v.string()),
     geschlecht: v.optional(v.string()),
     familienstand: v.optional(v.string()),
     strasse: v.optional(v.string()),
@@ -31,5 +31,11 @@ export default defineSchema({
     email: v.optional(v.string()),
     kontoinhaber: v.optional(v.string()),
     iban: v.optional(v.string()),
-  }),
+
+    abteilungId: v.optional(v.id("abteilungen")),
+    gruppeId: v.optional(v.id("gruppen")),
+  })
+    .index("by_abteilung", ["abteilungId"])
+    .index("by_gruppe", ["gruppeId"])
+    .index("by_nachname", ["nachname"]),
 });

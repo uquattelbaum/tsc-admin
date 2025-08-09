@@ -2,6 +2,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Gruppen() {
   const gruppen = useQuery(api.gruppen.list);
@@ -26,7 +27,14 @@ export default function Gruppen() {
   const speichern = async () => {
     if (!neu.name || !neu.abteilungId) return;
     await createGruppe(neu);
-    setNeu({ name: "", abteilungId: "" as Id<"abteilungen">, wochentag: "", uhrzeit: "", trainer: "", raum: "" });
+    setNeu({
+      name: "",
+      abteilungId: "" as Id<"abteilungen">,
+      wochentag: "",
+      uhrzeit: "",
+      trainer: "",
+      raum: "",
+    });
     setShowForm(false);
   };
 
@@ -48,7 +56,12 @@ export default function Gruppen() {
             <select
               className="border p-2 rounded"
               value={neu.abteilungId}
-              onChange={(e) => setNeu({ ...neu, abteilungId: e.target.value as Id<"abteilungen"> })}
+              onChange={(e) =>
+                setNeu({
+                  ...neu,
+                  abteilungId: e.target.value as Id<"abteilungen">,
+                })
+              }
             >
               <option value="">Abteilung wählen</option>
               {abteilungen?.map((a) => (
@@ -63,16 +76,35 @@ export default function Gruppen() {
               value={neu.name}
               onChange={(e) => setNeu({ ...neu, name: e.target.value })}
             />
-            <input className="border p-2 rounded" placeholder="Wochentag" value={neu.wochentag}
-              onChange={(e) => setNeu({ ...neu, wochentag: e.target.value })} />
-            <input className="border p-2 rounded" placeholder="Uhrzeit" value={neu.uhrzeit}
-              onChange={(e) => setNeu({ ...neu, uhrzeit: e.target.value })} />
-            <input className="border p-2 rounded" placeholder="Trainer" value={neu.trainer}
-              onChange={(e) => setNeu({ ...neu, trainer: e.target.value })} />
-            <input className="border p-2 rounded" placeholder="Raum" value={neu.raum}
-              onChange={(e) => setNeu({ ...neu, raum: e.target.value })} />
+            <input
+              className="border p-2 rounded"
+              placeholder="Wochentag"
+              value={neu.wochentag}
+              onChange={(e) => setNeu({ ...neu, wochentag: e.target.value })}
+            />
+            <input
+              className="border p-2 rounded"
+              placeholder="Uhrzeit"
+              value={neu.uhrzeit}
+              onChange={(e) => setNeu({ ...neu, uhrzeit: e.target.value })}
+            />
+            <input
+              className="border p-2 rounded"
+              placeholder="Trainer"
+              value={neu.trainer}
+              onChange={(e) => setNeu({ ...neu, trainer: e.target.value })}
+            />
+            <input
+              className="border p-2 rounded"
+              placeholder="Raum"
+              value={neu.raum}
+              onChange={(e) => setNeu({ ...neu, raum: e.target.value })}
+            />
           </div>
-          <button onClick={speichern} className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          <button
+            onClick={speichern}
+            className="mt-3 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
             Speichern
           </button>
         </div>
@@ -89,6 +121,7 @@ export default function Gruppen() {
               <th className="px-4 py-2">Uhrzeit</th>
               <th className="px-4 py-2">Trainer</th>
               <th className="px-4 py-2">Raum</th>
+              <th className="px-4 py-2 text-right">Aktionen</th>
             </tr>
           </thead>
           <tbody>
@@ -100,6 +133,24 @@ export default function Gruppen() {
                 <td className="px-4 py-2">{g.uhrzeit ?? "-"}</td>
                 <td className="px-4 py-2">{g.trainer ?? "-"}</td>
                 <td className="px-4 py-2">{g.raum ?? "-"}</td>
+                <td className="px-4 py-2">
+                  <div className="flex gap-3 justify-end">
+                    <Link
+                      to={`/?abteilungId=${g.abteilungId}&gruppeId=${g._id}`}
+                      className="underline text-blue-600 hover:text-blue-700"
+                      title="Mitglieder dieser Gruppe anzeigen"
+                    >
+                      Mitglieder anzeigen
+                    </Link>
+                    <Link
+                      to={`/gruppen/${g._id}/anwesenheit`}
+                      className="underline"
+                      title="Anwesenheitsliste drucken/exportieren"
+                    >
+                      Anwesenheit
+                    </Link>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Link } from "react-router-dom";
 
 export default function Abteilungen() {
   const abteilungen = useQuery(api.abteilungen.list);
@@ -61,6 +62,7 @@ export default function Abteilungen() {
             <tr>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Beschreibung</th>
+              <th className="px-4 py-2">Aktionen</th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +70,14 @@ export default function Abteilungen() {
               <tr key={a._id} className="border-t">
                 <td className="px-4 py-2">{a.name}</td>
                 <td className="px-4 py-2">{a.beschreibung ?? "-"}</td>
+                <td className="px-4 py-2">
+                  <Link
+                    to={`/?abteilungId=${a._id}`}
+                    className="underline text-blue-600 hover:text-blue-700"
+                  >
+                    Mitglieder anzeigen
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
